@@ -1,28 +1,66 @@
-# Lecture 12. Why Harnesses Must Be Measured and Maintained Over Time
+# Lecture 12. Why Every Session Must Leave a Clean State
 
-## Guiding Question
+## Question
 
-Why do harnesses need benchmarking, cleanup, and operational maintenance?
+Why must each agent session end in a clean, restartable state?
 
-## Why This Matters
+## Why It Matters
 
-An impressive harness run is not enough. Over time, harnesses drift, models
-change, and systems accumulate entropy. Mature harnesses need measurement and
-garbage collection.
+Long-running development systems degrade when sessions leave ambiguous progress,
+stale artifacts, or unresolved structural violations. OpenAI and Anthropic both
+indicate that reliability over time depends on operational discipline, not only
+successful single runs.
 
-## Core Ideas
+## Core Concepts
 
-- Benchmarks should reveal harness differences, not just model differences.
-- High-throughput agent systems inevitably accumulate entropy.
-- Cleanup, refactoring, and doc gardening are harness responsibilities.
-- Operational maturity means the harness keeps working across repeated runs.
+- Clean state means the next session can start without manual repair.
+- Benchmark slices are needed to detect harness drift over time.
+- Cleanup loops reduce entropy in code, docs, and quality signals.
+- Maintenance is part of normal harness operation, not emergency work.
 
-## Primary Readings
+## Detailed Explanation
 
-- OpenAI: Harness engineering: leveraging Codex in an agent-first world
-- Thoughtworks: Harness Engineering
-- LangChain: The Anatomy of an Agent Harness
+OpenAI’s harness framing highlights repeatability: a workflow should continue to
+produce reliable outcomes as tasks and contexts change. This requires measurable
+checks beyond one successful demonstration. Benchmark comparisons help isolate
+whether a harness change improved completion rate, reduced retries, or caught
+more defects before review.
 
-## Code
+Anthropic’s long-running agent observations show why clean session exits are
+critical. When unfinished work, stale guidance, or weak boundaries accumulate,
+later sessions spend effort on state repair instead of forward progress. A clean
+exit policy therefore includes explicit recording of progress, removal of stale
+artifacts, and confirmation that the standard startup path still works.
 
-See [`code/`](./code/README.md) for benchmark, cleanup, and maintenance examples.
+Operationally, clean state and measurement reinforce each other:
+
+1. Cleanup reduces noise.
+2. Lower noise improves benchmark signal quality.
+3. Clear benchmarks identify where cleanup policy should be strengthened.
+
+## Examples and Artifacts
+
+- [`code/benchmark-comparison-template.md`](./code/benchmark-comparison-template.md):
+  template for comparing harness variants.
+- [`code/cleanup-loop.md`](./code/cleanup-loop.md): recurring maintenance cycle
+  for entropy reduction.
+- [`code/README.md`](./code/README.md): index of lecture artifacts.
+
+## Readings
+
+Primary:
+- OpenAI: *Harness engineering: leveraging Codex in an agent-first world*
+- Anthropic: *Effective harnesses for long-running agents*
+
+Secondary:
+- Thoughtworks: *Harness Engineering*
+
+## Exercises
+
+1. Run a fixed task set on two harness variants and complete
+   [`code/benchmark-comparison-template.md`](./code/benchmark-comparison-template.md).
+   Identify which harness changed both outcome quality and operational cost.
+2. Adopt [`code/cleanup-loop.md`](./code/cleanup-loop.md) for one week and track
+   which recurring issues disappear versus persist.
+3. Draft a clean-exit checklist for your repository. Include startup validation,
+   progress recording, and stale-artifact removal criteria.
