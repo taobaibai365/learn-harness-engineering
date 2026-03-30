@@ -1,5 +1,7 @@
 import { defineConfig } from "vitepress";
 
+const docsBase = process.env.DOCS_BASE_PATH ?? "/";
+
 const lectureItems = [
   { text: "Lecture 01", link: "/lectures/lecture-01-why-capable-agents-still-fail/" },
   { text: "Lecture 02", link: "/lectures/lecture-02-what-a-harness-actually-is/" },
@@ -35,6 +37,7 @@ const resourceItems = [
 ];
 
 export default defineConfig({
+  base: docsBase,
   title: "Learn Harness Engineering",
   description:
     "A project-based course on designing the environments, state, verification, and control systems that make Codex and Claude Code reliable.",

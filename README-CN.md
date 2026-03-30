@@ -48,7 +48,7 @@ Harness engineering 指的是：围绕模型搭建一整套工作环境，让它
 
 **第二步.** 把启动脚本复制进去：
 
-- [`init.sh`](./resources/zh/templates/init.sh) —— 一条命令完成依赖安装、验证和启动
+- `resources/zh/templates/init.sh` —— 一条命令完成依赖安装、验证和启动
 - 把 `INSTALL_CMD`、`VERIFY_CMD`、`START_CMD` 换成你自己的
 
 **第三步.** 把进度日志复制进去：

@@ -48,7 +48,7 @@ The idea is simple: instead of just writing prompts, give your agent a set of st
 
 **Step 2.** Copy the startup script:
 
-- [`init.sh`](./resources/en/templates/init.sh) — runs dependency install, verification, and startup in one shot
+- `resources/en/templates/init.sh` — runs dependency install, verification, and startup in one shot
 - Replace the `INSTALL_CMD`, `VERIFY_CMD`, and `START_CMD` with your actual commands
 
 **Step 3.** Copy the progress log:
