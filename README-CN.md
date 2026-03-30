@@ -71,6 +71,10 @@ Harness engineering 指的是：围绕模型搭建一整套工作环境，让它
 
 每个文件的详细用法写在 [中文模板指南](./resources/zh/templates/README.md)。英文版见 [English template guide](./resources/en/templates/README.md)。
 
+如果你想直接用 OpenAI 那篇 harness engineering 文章里的更完整高级结构，可以继续看
+[`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/README.md)
+和 [`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/README.md)。
+
 ## 课程大纲
 
 ### 讲义

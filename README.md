@@ -71,6 +71,11 @@ When your project gets more complex, add these:
 
 Each file has detailed usage instructions in the [English template guide](./resources/en/templates/README.md). Chinese versions are available in [中文模板指南](./resources/zh/templates/README.md).
 
+If you want the fuller OpenAI-style repository layout from the
+"Harness engineering" post, use the advanced pack in
+[`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/README.md) or
+[`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/README.md).
+
 ## Syllabus
 
 ### Lectures
