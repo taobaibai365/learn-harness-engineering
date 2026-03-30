@@ -44,7 +44,8 @@ Run 2 must use the strongest harness assembled in the course:
 ## Procedure
 
 1. Create a quality document using the template in
-   `resources/en/templates/quality-document.md` (or `resources/zh/templates/`).
+   `docs/resources/en/templates/quality-document.md` (or
+   `docs/resources/zh/templates/`).
    Fill in initial grades for all product domains and architectural layers based
    on the current codebase state.
 2. Define one fixed benchmark task suite and one scoring sheet before running

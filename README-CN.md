@@ -43,33 +43,33 @@ Harness engineering 指的是：围绕模型搭建一整套工作环境，让它
 
 **第一步.** 把根指令文件复制到项目根目录：
 
-- [`AGENTS.md`](./resources/zh/templates/AGENTS.md) 通用版，或者 [`CLAUDE.md`](./resources/zh/templates/CLAUDE.md) 如果你用 Claude Code
+- [`AGENTS.md`](./docs/resources/zh/templates/AGENTS.md) 通用版，或者 [`CLAUDE.md`](./docs/resources/zh/templates/CLAUDE.md) 如果你用 Claude Code
 - 把里面的命令、路径和规则换成你自己项目的
 
 **第二步.** 把启动脚本复制进去：
 
-- `resources/zh/templates/init.sh` —— 一条命令完成依赖安装、验证和启动
+- `docs/resources/zh/templates/init.sh` —— 一条命令完成依赖安装、验证和启动
 - 把 `INSTALL_CMD`、`VERIFY_CMD`、`START_CMD` 换成你自己的
 
 **第三步.** 把进度日志复制进去：
 
-- [`claude-progress.md`](./resources/zh/templates/claude-progress.md) —— 每轮会话记录做了什么、验证了什么、下一步是什么
+- [`claude-progress.md`](./docs/resources/zh/templates/claude-progress.md) —— 每轮会话记录做了什么、验证了什么、下一步是什么
 - agent 每次开工会先读这个文件，从上次停下的地方继续
 
 **第四步.** 把功能清单复制进去：
 
-- [`feature_list.json`](./resources/zh/templates/feature_list.json) —— 机器可读的功能列表，每个功能有状态、验证步骤和证据
+- [`feature_list.json`](./docs/resources/zh/templates/feature_list.json) —— 机器可读的功能列表，每个功能有状态、验证步骤和证据
 - 把示例功能换成你自己的
 
 四个文件，最小起步就够了。比光靠一段提示词稳定得多。
 
 等项目变复杂了，再补这些：
 
-- [`session-handoff.md`](./resources/zh/templates/session-handoff.md) —— 会话之间的交接摘要
-- [`clean-state-checklist.md`](./resources/zh/templates/clean-state-checklist.md) —— 每次会话结束前的清理清单
-- [`evaluator-rubric.md`](./resources/zh/templates/evaluator-rubric.md) —— 评审 agent 产出质量的评分表
+- [`session-handoff.md`](./docs/resources/zh/templates/session-handoff.md) —— 会话之间的交接摘要
+- [`clean-state-checklist.md`](./docs/resources/zh/templates/clean-state-checklist.md) —— 每次会话结束前的清理清单
+- [`evaluator-rubric.md`](./docs/resources/zh/templates/evaluator-rubric.md) —— 评审 agent 产出质量的评分表
 
-每个文件的详细用法写在 [中文模板指南](./resources/zh/templates/README.md)。英文版见 [English template guide](./resources/en/templates/README.md)。
+每个文件的详细用法写在 [中文模板指南](./docs/resources/zh/templates/README.md)。英文版见 [English template guide](./docs/resources/en/templates/README.md)。
 
 如果你想直接用 OpenAI 那篇 harness engineering 文章里的更完整高级结构，可以继续看
 [`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/README.md)
@@ -103,9 +103,9 @@ Harness engineering 指的是：围绕模型搭建一整套工作环境，让它
 
 ### 资料库
 
-- [Resource Library 总览](./resources/README.md)
-- [中文资料库](./resources/zh/README.md)
-- [English Resource Library](./resources/en/README.md)
+- [Resource Library 总览](./docs/resources/README.md)
+- [中文资料库](./docs/resources/zh/README.md)
+- [English Resource Library](./docs/resources/en/README.md)
 
 ## 学习路径推荐
 
@@ -245,6 +245,6 @@ npm run docs:dev
 
 - `lectures/` - 全部讲义
 - `projects/` - 全部实践项目，包括 capstone
-- `resources/` - 中英双语的可复用模板、检查清单和方法参考
+- `docs/resources/` - 中英双语的可复用模板、检查清单和方法参考
 
 每个 lecture 都带一个 `code/` 目录，用来放小型真实示例和 supporting artifacts。

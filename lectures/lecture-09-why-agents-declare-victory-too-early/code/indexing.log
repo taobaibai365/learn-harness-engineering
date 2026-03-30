@@ -1,7 +1,0 @@
-[startup] electron window created
-[import] imported 3 documents from /Users/example/Documents/kb
-[index] starting chunk pipeline
-[index] doc=design-notes.md chunks=18
-[index] doc=meeting-summary.txt chunks=9
-[index] doc=retrieval-plan.md chunks=13
-[index] completed in 2.14s

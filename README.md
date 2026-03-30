@@ -43,33 +43,33 @@ The idea is simple: instead of just writing prompts, give your agent a set of st
 
 **Step 1.** Copy the root instruction file into your project root:
 
-- [`AGENTS.md`](./resources/en/templates/AGENTS.md) for most agents, or [`CLAUDE.md`](./resources/en/templates/CLAUDE.md) if you're using Claude Code
+- [`AGENTS.md`](./docs/resources/en/templates/AGENTS.md) for most agents, or [`CLAUDE.md`](./docs/resources/en/templates/CLAUDE.md) if you're using Claude Code
 - Edit the commands, paths, and rules to match your project
 
 **Step 2.** Copy the startup script:
 
-- `resources/en/templates/init.sh` — runs dependency install, verification, and startup in one shot
+- `docs/resources/en/templates/init.sh` — runs dependency install, verification, and startup in one shot
 - Replace the `INSTALL_CMD`, `VERIFY_CMD`, and `START_CMD` with your actual commands
 
 **Step 3.** Copy the progress log:
 
-- [`claude-progress.md`](./resources/en/templates/claude-progress.md) — records what was done each session, what's verified, and what's next
+- [`claude-progress.md`](./docs/resources/en/templates/claude-progress.md) — records what was done each session, what's verified, and what's next
 - The agent reads this at the start of every session to pick up where it left off
 
 **Step 4.** Copy the feature list:
 
-- [`feature_list.json`](./resources/en/templates/feature_list.json) — a machine-readable list of features with status, verification steps, and evidence
+- [`feature_list.json`](./docs/resources/en/templates/feature_list.json) — a machine-readable list of features with status, verification steps, and evidence
 - Replace the example features with your own
 
 That's it for the minimum setup. Four files, and your agent sessions will already be more stable than running on prompts alone.
 
 When your project gets more complex, add these:
 
-- [`session-handoff.md`](./resources/en/templates/session-handoff.md) — compact handoff note between sessions
-- [`clean-state-checklist.md`](./resources/en/templates/clean-state-checklist.md) — checklist to run before ending each session
-- [`evaluator-rubric.md`](./resources/en/templates/evaluator-rubric.md) — scorecard for reviewing agent output quality
+- [`session-handoff.md`](./docs/resources/en/templates/session-handoff.md) — compact handoff note between sessions
+- [`clean-state-checklist.md`](./docs/resources/en/templates/clean-state-checklist.md) — checklist to run before ending each session
+- [`evaluator-rubric.md`](./docs/resources/en/templates/evaluator-rubric.md) — scorecard for reviewing agent output quality
 
-Each file has detailed usage instructions in the [English template guide](./resources/en/templates/README.md). Chinese versions are available in [中文模板指南](./resources/zh/templates/README.md).
+Each file has detailed usage instructions in the [English template guide](./docs/resources/en/templates/README.md). Chinese versions are available in [中文模板指南](./docs/resources/zh/templates/README.md).
 
 If you want the fuller OpenAI-style repository layout from the
 "Harness engineering" post, use the advanced pack in
@@ -104,9 +104,9 @@ If you want the fuller OpenAI-style repository layout from the
 
 ### Resource Library
 
-- [Resource Library Overview](./resources/README.md)
-- [Chinese Resource Library](./resources/zh/README.md)
-- [English Resource Library](./resources/en/README.md)
+- [Resource Library Overview](./docs/resources/README.md)
+- [Chinese Resource Library](./docs/resources/zh/README.md)
+- [English Resource Library](./docs/resources/en/README.md)
 
 ## Recommended Learning Path
 
@@ -246,6 +246,6 @@ The final project also serves as the course's capstone harness.
 
 - `lectures/` - All lectures
 - `projects/` - All hands-on projects, including the capstone
-- `resources/` - Bilingual reusable templates, checklists, and method references
+- `docs/resources/` - Bilingual reusable templates, checklists, and method references
 
 Each lecture includes a `code/` directory for small real-world examples and supporting artifacts.
