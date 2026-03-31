@@ -2,11 +2,24 @@
 layout: page
 ---
 
+<script setup>
+if (typeof window !== 'undefined') {
+  const lang = navigator.language || navigator.languages?.[0] || ''
+  const target = lang.startsWith('zh') ? '/zh/' : '/en/'
+  if (!window.location.pathname.replace(/\/$/, '').endsWith(target.replace(/\/$/, ''))) {
+    window.location.replace(target)
+  }
+}
+</script>
+
 # Learn Harness Engineering
 
-A project-based course on building the environment, state management, verification, and control mechanisms that make Codex and Claude Code work more reliably.
+Redirecting...
 
-Choose your language / 选择语言：
-
-- [English →](/en/)
-- [中文 →](/zh/)
+<template>
+<p>Choose your language / 选择语言：</p>
+<ul>
+  <li><a href="/zh/">中文</a></li>
+  <li><a href="/en/">English</a></li>
+</ul>
+</template>
