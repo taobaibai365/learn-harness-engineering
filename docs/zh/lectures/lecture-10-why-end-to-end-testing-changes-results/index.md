@@ -64,6 +64,8 @@ OpenAI 采用了"分层领域架构"——每个业务领域（如"用户设置"
 
 关键原则：**执行不变量，不微管实现。** 比如要求"数据在边界解析"，但不规定用哪个库（模型自己倾向 Zod，但 harness 没指定）。错误消息要包含修复指导——不只是说"违规了"，而是告诉 agent 具体怎么改。这种面向 agent 的 lint 比"人类看的"文档有效得多。
 
+> 来源：[OpenAI: Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
+
 ### 1. harness 必须包含端到端层
 
 在你的验证流程里明确：对于涉及跨组件修改的任务，端到端测试通过是完成的前置条件。在 CLAUDE.md 里写：
