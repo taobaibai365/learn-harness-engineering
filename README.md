@@ -494,4 +494,4 @@ learn-harness-engineering/
 
 ## Acknowledgments
 
-This course was inspired by and draws ideas from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) — a progressive guide to building agent harnesses from scratch, from a single loop to isolated autonomous execution.
+This course was inspired by and draws ideas from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) — a progressive guide to building agent from scratch, from a single loop to isolated autonomous execution.
