@@ -23,34 +23,29 @@ This lecture explains why you must put everything an agent needs to know into th
 ## Knowledge Visibility
 
 ```mermaid
-graph LR
-    subgraph "Visible to Agent"
-        Repo["Repository Files<br/>AGENTS.md, code, tests"]
-    end
-    subgraph "Invisible to Agent"
-        Slack["Slack History"]
-        Confluence["Confluence Docs"]
-        Heads["Senior Engineers' Heads"]
-        Jira["Jira Tickets"]
-    end
-
-    Repo -->|"accessible"| Agent["🤖 Agent"]
-    Slack -.->|"inaccessible"| Agent
-    Confluence -.->|"inaccessible"| Agent
-    Heads -.->|"inaccessible"| Agent
-    Jira -.->|"inaccessible"| Agent
+flowchart LR
+    Slack["Rules in Slack"] --> Write["Write them into repo files<br/>AGENTS.md / ARCHITECTURE.md / PROGRESS.md"]
+    Confluence["Rules in Confluence"] --> Write
+    Heads["Rules in people's heads"] --> Write
+    Jira["Rules in Jira tickets"] --> Write
+    Write --> Repo["Repository files"]
+    Repo --> Agent["New agent session<br/>reads the repo directly"]
+    Warning["If a rule is not in the repo,<br/>the agent cannot see it"] --> Agent
 ```
 
 ```mermaid
-graph TB
-    subgraph "Cold-Start Test"
-        Q1["What is this system?"]
-        Q2["How is it organized?"]
-        Q3["How do I run it?"]
-        Q4["How do I verify it?"]
-        Q5["Where are we now?"]
-    end
-    Q1 & Q2 & Q3 & Q4 & Q5 -->|"all must be<br/>answerable from repo"| Pass["✅ Harness Ready"]
+flowchart TB
+    Q1["What is this system?"] --> A1["AGENTS.md / README"]
+    Q2["How is it organized?"] --> A2["ARCHITECTURE.md / module docs"]
+    Q3["How do I run it?"] --> A3["Makefile / init.sh / package scripts"]
+    Q4["How do I verify it?"] --> A4["Test, lint, and check commands"]
+    Q5["Where are we now?"] --> A5["PROGRESS.md / feature list / git history"]
+
+    A1 --> Ready["A new session can start work<br/>without asking a human"]
+    A2 --> Ready
+    A3 --> Ready
+    A4 --> Ready
+    A5 --> Ready
 ```
 
 ## Why This Happens

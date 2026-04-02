@@ -23,33 +23,29 @@ OpenAI 和 Anthropic 都明确指出：**长期可靠性取决于操作纪律，
 ## 清洁状态的五个维度
 
 ```mermaid
-graph TB
-    subgraph "会话退出检查清单"
-        B["✅ 构建通过"]
-        T["✅ 测试通过"]
-        P["✅ 进度已记录"]
-        A["✅ 无过时工件"]
-        S["✅ 启动路径可用"]
-    end
-
-    B & T & P & A & S -->|"缺一不可"| Clean["🧹 清洁状态"]
-    Clean -->|"保障"| Next["下一会话<br/>立即进入工作状态"]
+flowchart LR
+    Work["功能工作已完成"] --> Build{"构建通过？"}
+    Build -->|是| Test{"测试通过？"}
+    Build -->|否| Fix["先修好再退出"]
+    Test -->|是| Record["更新功能清单 + 进度"]
+    Test -->|否| Fix
+    Record --> Cleanup["清理临时工件 / 调试代码"]
+    Cleanup --> Startup{"标准启动路径可用？"}
+    Startup -->|是| Clean["干净交接"]
+    Startup -->|否| Fix
+    Fix --> Build
 ```
 
 ```mermaid
-graph LR
-    subgraph "12 周后（无清理）"
-        W1["第 1 周<br/>100% 构建, 100% 测试"] --> W4["第 4 周<br/>95% / 92%"]
-        W4 --> W8["第 8 周<br/>82% / 78%"]
-        W8 --> W12["第 12 周<br/>68% / 61%"]
-    end
+flowchart LR
+    Dirty["这次退出时<br/>测试是红的、临时文件没删、进度也没写"] --> Diagnose["下个会话先花时间<br/>搞清楚发生了什么"]
+    Diagnose --> Fragile["接着在一个很乱的仓库上继续改"]
+    Fragile --> More["更多调试文件、更多坏检查、<br/>更多说不清的进度"]
+    More --> Dirty
 
-    subgraph "12 周后（有清理策略）"
-        C1["第 1 周<br/>100% / 100%"] --> C12["第 12 周<br/>97% / 95%"]
-    end
-
-    style W12 fill:#D95C41,color:#fff
-    style C12 fill:#4CAF50,color:#fff
+    Clean["这次退出前<br/>测试是绿的、进度写了、临时文件删了"] --> Fast["下个会话打开仓库就能继续写代码"]
+    Fast --> Stable["不用先救火"]
+    Stable --> Clean
 ```
 
 ## 为什么会这样

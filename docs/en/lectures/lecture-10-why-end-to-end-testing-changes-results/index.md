@@ -22,26 +22,27 @@ Google's test pyramid tells us: lots of unit tests form the base, but if you sto
 ## Test Pyramid & Review Feedback Loop
 
 ```mermaid
-graph TB
-    subgraph "Test Adequacy Gradient"
-        E2E["End-to-End Tests<br/><i>catches component boundary defects</i>"]
-        Int["Integration Tests"]
-        Unit["Unit Tests<br/><i>fast but isolated</i>"]
+flowchart TB
+    subgraph Unit["Unit tests inspect parts in isolation"]
+        U1["Renderer test"]
+        U2["Preload test"]
+        U3["Service test"]
     end
 
-    Unit --> Int --> E2E
-
-    style Unit fill:#F4F3EE
-    style Int fill:#E0DFD9
-    style E2E fill:#D95C41,color:#fff
+    subgraph E2E["End-to-end run crosses the real system"]
+        R["Renderer click"] --> P["Preload bridge"]
+        P --> S["Service layer"]
+        S --> F["Filesystem / OS"]
+        F --> Result["Real exported file"]
+    end
 ```
 
 ```mermaid
-graph LR
-    Review["Code Review<br/>recurring feedback"] --> Pattern["Identify pattern"]
-    Pattern --> Rule["Create executable check<br/>+ agent-oriented error msg"]
-    Rule --> Harness["Add to harness"]
-    Harness -->|"prevents class"| Agent["🤖 Agent"]
+flowchart LR
+    Review["Reviewer says:<br/>renderer cannot import fs"] --> Rule["Add a check for direct fs import"]
+    Rule --> Message["Error tells the agent<br/>to move file access into preload"]
+    Message --> Harness["Add the check to the harness"]
+    Harness --> Stronger["Next similar mistake fails fast"]
 ```
 
 ## Why This Happens

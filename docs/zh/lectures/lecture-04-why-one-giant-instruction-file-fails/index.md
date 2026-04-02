@@ -23,26 +23,22 @@
 ## 指令文件架构
 
 ```mermaid
-graph TB
-    subgraph "三层结构"
-        L1["<b>第一层：路由文件</b><br/>AGENTS.md (50–200 行)<br/>概览 + 硬约束 + 链接"]
-        L2a["<b>第二层 a</b><br/>api-patterns.md"]
-        L2b["<b>第二层 b</b><br/>database-rules.md"]
-        L2c["<b>第二层 c</b><br/>testing-standards.md"]
-        L3["<b>第三层：内联注释</b><br/>类型定义, 接口注释"]
-    end
+flowchart LR
+    Mono["一个超长 AGENTS.md"] --> MonoLoad["改一个小 bug<br/>也得把部署说明和历史备注全读一遍"]
+    MonoLoad --> MonoRisk["关键规则埋在中间<br/>很容易漏掉"]
 
-    L1 -->|"链接"| L2a
-    L1 -->|"链接"| L2b
-    L1 -->|"链接"| L2c
-    L2a & L2b & L2c -->|"引用"| L3
-
-    style L1 fill:#D95C41,color:#fff
+    Router["短 AGENTS.md"] --> Topics["按任务去读 API / 数据库 / 测试文档"]
+    Topics --> RoutedResult["把更多上下文留给代码阅读<br/>和验证"]
 ```
 
 ```mermaid
-graph LR
-    Top["文件顶部<br/>✅ 高召回率"] --- Mid["文件中间<br/>❌ 中间迷失效应"] --- Bot["文件底部<br/>✅ 高召回率"]
+flowchart TB
+    File["600 行指令文件"] --> Top["顶部<br/>快速开始 + 硬约束"]
+    File --> Mid["中部<br/>第 300 行的安全规则"]
+    File --> Bot["底部<br/>明确的结束检查清单"]
+    Top --> Seen["高概率被记住"]
+    Bot --> Seen
+    Mid --> Missed["高概率被稀释或忽略"]
 ```
 
 ## 为什么会这样

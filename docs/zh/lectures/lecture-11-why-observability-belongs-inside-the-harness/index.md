@@ -23,25 +23,13 @@
 ## 双层可观测性
 
 ```mermaid
-graph TB
-    subgraph "过程层"
-        SC["冲刺合同<br/><i>范围 + 标准 + 排除项</i>"]
-        ER["评估评分标准<br/><i>结构化评分</i>"]
-    end
-    subgraph "系统层"
-        Logs["运行时日志"]
-        Traces["请求追踪"]
-        Health["健康检查"]
-    end
-
-    SC -->|"指导"| Gen["生成器"]
-    Gen -->|"产出"| Runtime["运行时行为"]
-    Runtime --> Logs & Traces & Health
-    Logs & Traces & Health -->|"证据"| ER
-    ER -->|"反馈"| Gen
-
-    style SC fill:#D95C41,color:#fff
-    style ER fill:#D95C41,color:#fff
+flowchart LR
+    Contract["先把这次任务写清楚<br/>改哪些文件 / 不改哪些部分 / 怎么算通过"] --> Generator["生成器"]
+    Generator --> Signals["运行时收集<br/>日志 / 追踪 / 健康检查"]
+    Contract --> Review["按检查表逐项看<br/>功能 / 测试 / 边界"]
+    Signals --> Review
+    Review --> Verdict["指出哪一项没过<br/>以及应该去改哪里"]
+    Verdict --> Generator
 ```
 
 ## 为什么会这样

@@ -104,7 +104,13 @@ export default withMermaid(
         primaryBorderColor: '#D1D1D1',
         primaryTextColor: '#1A1A1A',
         lineColor: '#B3B3B3',
-        fontFamily: 'Inter, sans-serif'
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '18px'
+      },
+      flowchart: {
+        nodeSpacing: 40,
+        rankSpacing: 56,
+        padding: 12
       }
     },
     locales: {

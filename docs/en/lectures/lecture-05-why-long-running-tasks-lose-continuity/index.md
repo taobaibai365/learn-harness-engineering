@@ -23,25 +23,26 @@ This is one of the most painful problems with AI coding agents: cross-session co
 ## Session Continuity Flow
 
 ```mermaid
-graph LR
-    subgraph "Session N"
-        Work1["Work on task"] --> Update1["Update PROGRESS.md<br/>Update DECISIONS.md"]
-        Update1 --> Commit1["Git commit checkpoint"]
-    end
-    subgraph "Session N+1"
-        Read1["Read PROGRESS.md<br/>Read DECISIONS.md"] --> Resume["Resume from<br/>Next Steps"]
-        Resume --> Work2["Continue work"]
-    end
-
-    Commit1 -->|"handoff"| Read1
+flowchart LR
+    S1["Session 1<br/>feature is half done"] --> End1["Context is nearly full<br/>session ends"]
+    End1 --> S2["Session 2 starts fresh"]
+    S2 --> Guess["Re-read folders, rerun tests,<br/>guess why the code was written this way"]
+    Guess --> Drift["Work gets repeated<br/>and recovery is slow"]
 ```
 
 ```mermaid
-graph TB
-    subgraph "Information Loss"
-        Full["Full Context<br/>What + Why + How"] -->|"compaction"| Compact["Compacted<br/>What ✓ · Why ✗"]
-        Full -->|"new session"| Reset["Reset<br/>Rebuild from artifacts"]
-    end
+flowchart LR
+    Work["Session 1 work"] --> Progress["PROGRESS.md<br/>done / in progress / next step"]
+    Work --> Decisions["DECISIONS.md<br/>why this approach was chosen"]
+    Work --> Verify["Verification notes<br/>which tests pass and fail"]
+    Work --> Commit["Git checkpoint<br/>exact repo state"]
+
+    Progress --> Rebuild["Session 2 rebuild"]
+    Decisions --> Rebuild
+    Verify --> Rebuild
+    Commit --> Rebuild
+
+    Rebuild --> Resume["New session picks up quickly"]
 ```
 
 ## Why This Happens

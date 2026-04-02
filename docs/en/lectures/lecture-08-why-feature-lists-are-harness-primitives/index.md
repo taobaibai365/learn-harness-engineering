@@ -23,26 +23,26 @@ Feature lists are not planning documents for humans to read. They are the core d
 ## Feature State Machine
 
 ```mermaid
-stateDiagram-v2
-    [*] --> not_started
-    not_started --> active: Agent picks task
-    active --> passing: Verification command passes
-    active --> blocked: External dependency
-    blocked --> active: Dependency resolved
-    passing --> [*]
+flowchart LR
+    Feature["One feature row"] --> Behavior["Behavior<br/>for example: POST /cart/items returns 201"]
+    Feature --> Check["Verification command<br/>the exact check to run"]
+    Feature --> State["State<br/>not_started / active / blocked / passing"]
 
-    note right of passing
-        Irreversible: once passing,
-        cannot go back
-    end note
+    Behavior --> Complete["Only with all three fields<br/>is the feature row usable"]
+    Check --> Complete
+    State --> Complete
 ```
 
 ```mermaid
-graph TB
-    FL["📋 Feature List<br/><i>Single source of truth</i>"] --> Scheduler["Scheduler<br/><i>picks next task</i>"]
-    FL --> Verifier["Verifier<br/><i>runs check commands</i>"]
-    FL --> Handoff["Handoff Reporter<br/><i>generates summaries</i>"]
-    FL --> Progress["Progress Tracker<br/><i>tallies state distribution</i>"]
+flowchart LR
+    List["feature_list.json / features.md"] --> Scheduler["Pick the next not_started item"]
+    Scheduler --> Agent["Agent works on that one item"]
+    Agent --> Verifier["Run that item's verification command"]
+    Verifier -->|pass| Passing["Mark it passing<br/>and write the evidence"]
+    Verifier -->|fail| Active["Keep it active"]
+    Verifier -->|dependency issue| Blocked["Mark it blocked"]
+    Passing --> Handoff["Update handoff note<br/>and current progress"]
+    Active --> Agent
 ```
 
 ## Why This Happens

@@ -23,16 +23,13 @@ This lecture gives you a precise, actionable definition. Not an academic abstrac
 ## The Five-Tuple Harness Model
 
 ```mermaid
-graph TB
-    Agent["AI Agent"] --> I["📋 Instructions<br/><i>AGENTS.md, CLAUDE.md</i>"]
-    Agent --> T["🔧 Tools<br/><i>Shell, file ops, tests</i>"]
-    Agent --> E["🖥️ Environment<br/><i>Dependencies, runtime</i>"]
-    Agent --> S["💾 State<br/><i>Progress files, git</i>"]
-    Agent --> F["✅ Feedback<br/><i>Test results, lint, build</i>"]
-
-    I ~~~ T ~~~ E ~~~ S ~~~ F
-
-    F -->|"highest ROI"| Star["⭐ Start here"]
+flowchart LR
+    Rules["Project rules<br/>AGENTS.md / CLAUDE.md"] --> Agent["AI Agent"]
+    State["Progress and git<br/>PROGRESS.md / commits"] --> Agent
+    Agent --> Tools["Tools<br/>shell / files / tests"]
+    Tools --> Env["Runtime<br/>deps / services / versions"]
+    Env --> Checks["Check results<br/>test / lint / build"]
+    Checks --> Agent
 ```
 
 ## Why This Happens

@@ -23,24 +23,19 @@
 ## 初始化生命周期
 
 ```mermaid
-graph LR
-    subgraph "初始化阶段"
-        I1["可运行环境<br/><i>依赖已安装</i>"] --> I2["测试框架<br/><i>示例测试通过</i>"]
-        I2 --> I3["自举契约<br/><i>启动/测试/验证文档</i>"]
-        I3 --> I4["任务拆分<br/><i>有序的功能清单</i>"]
-        I4 --> I5["Git 检查点<br/><i>干净提交</i>"]
-    end
-    subgraph "实现阶段"
-        I5 --> P1["会话 2：功能 1"]
-        P1 --> P2["会话 3：功能 2"]
-        P2 --> P3["会话 N：功能 N"]
+flowchart TB
+    subgraph Wrong["混在一起的一次会话（错误）"]
+        W1["一上来就开始做功能"] --> W2["做到一半才发现环境和测试缺口"]
+        W2 --> W3["累积未经验证的代码"]
+        W3 --> W4["下个会话还得重新摸项目状态"]
     end
 
-    style I1 fill:#D95C41,color:#fff
-    style I2 fill:#D95C41,color:#fff
-    style I3 fill:#D95C41,color:#fff
-    style I4 fill:#D95C41,color:#fff
-    style I5 fill:#D95C41,color:#fff
+    subgraph Right["独立初始化阶段（正确）"]
+        R1["会话 1：环境可运行"] --> R2["示例测试通过"]
+        R2 --> R3["写出启动契约 + 任务清单"]
+        R3 --> R4["提交干净检查点"]
+        R4 --> R5["后续会话直接开始做已准备好的任务"]
+    end
 ```
 
 ## 为什么会这样

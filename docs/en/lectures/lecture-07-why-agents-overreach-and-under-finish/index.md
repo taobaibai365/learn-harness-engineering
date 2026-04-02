@@ -23,21 +23,23 @@ Anthropic's "Effective harnesses for long-running agents" engineering blog post 
 ## WIP=1 Workflow
 
 ```mermaid
-graph LR
-    subgraph "WIP = 1 (Correct)"
-        Pick1["Pick feature"] --> Do1["Implement"] --> Verify1["Verify E2E"]
-        Verify1 -->|"pass"| Commit1["Commit"]
-        Commit1 --> Next1["Next feature"]
-        Verify1 -->|"fail"| Do1
-    end
+flowchart LR
+    Queue["Feature queue"] --> Pick["Pick exactly one task"]
+    Pick --> Active["Only one active item"]
+    Active --> Verify["Run end-to-end verification"]
+    Verify -->|pass| Commit["Commit and unlock next task"]
+    Verify -->|fail| Active
+    Commit --> Queue
 ```
 
 ```mermaid
-graph LR
-    subgraph "Unconstrained (Wrong)"
-        Pick2["Activate 5 features"] --> Do2["Work on all"]
-        Do2 --> Result2["800 lines, 12 files<br/>20% pass rate ❌"]
-    end
+flowchart TB
+    Budget["Available reasoning budget = C"] --> One["WIP = 1<br/>C / 1 per task"]
+    Budget --> Many["WIP = 5<br/>C / 5 per task"]
+
+    One --> Finish["One feature reaches passing state"]
+    Many --> Partial["Five partial implementations"]
+    Partial --> VCR["Low verified completion rate<br/>high rework next session"]
 ```
 
 ## Why This Happens

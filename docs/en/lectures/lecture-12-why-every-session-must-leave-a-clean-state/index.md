@@ -23,33 +23,29 @@ Both OpenAI and Anthropic state clearly: **long-term reliability depends on oper
 ## Five Dimensions of Clean State
 
 ```mermaid
-graph TB
-    subgraph "Session Exit Checklist"
-        B["✅ Build passes"]
-        T["✅ Tests pass"]
-        P["✅ Progress recorded"]
-        A["✅ No stale artifacts"]
-        S["✅ Startup path available"]
-    end
-
-    B & T & P & A & S -->|"all required"| Clean["🧹 Clean State"]
-    Clean -->|"enables"| Next["Next session<br/>immediate productivity"]
+flowchart LR
+    Work["Feature work complete"] --> Build{"Build passes?"}
+    Build -->|yes| Test{"Tests pass?"}
+    Build -->|no| Fix["Fix before exit"]
+    Test -->|yes| Record["Update feature list + progress"]
+    Test -->|no| Fix
+    Record --> Cleanup["Remove temp artifacts / debug code"]
+    Cleanup --> Startup{"Standard startup path works?"}
+    Startup -->|yes| Clean["Clean handoff"]
+    Startup -->|no| Fix
+    Fix --> Build
 ```
 
 ```mermaid
-graph LR
-    subgraph "Entropy Over 12 Weeks"
-        W1["Week 1<br/>100% build, 100% tests"] --> W4["Week 4<br/>95% / 92%"]
-        W4 --> W8["Week 8<br/>82% / 78%"]
-        W8 --> W12["Week 12<br/>68% / 61%"]
-    end
+flowchart LR
+    Dirty["Session ends with<br/>red tests / temp files / no progress update"] --> Diagnose["Next session first has to<br/>figure out what happened"]
+    Diagnose --> Fragile["New work starts on a messy repo"]
+    Fragile --> More["More debug files, more broken checks,<br/>more unclear progress"]
+    More --> Dirty
 
-    subgraph "With Cleanup Strategy"
-        C1["Week 1<br/>100% / 100%"] --> C12["Week 12<br/>97% / 95%"]
-    end
-
-    style W12 fill:#D95C41,color:#fff
-    style C12 fill:#4CAF50,color:#fff
+    Clean["Session ends with<br/>green tests / updated progress / temp files removed"] --> Fast["Next session can start coding immediately"]
+    Fast --> Stable["No need to rescue the repo first"]
+    Stable --> Clean
 ```
 
 ## Why This Happens

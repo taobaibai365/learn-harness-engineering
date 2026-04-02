@@ -23,24 +23,19 @@ The better approach: before letting the agent start working, use a separate phas
 ## Initialization Lifecycle
 
 ```mermaid
-graph LR
-    subgraph "Initialization Phase"
-        I1["Runnable environment<br/><i>deps installed</i>"] --> I2["Test framework<br/><i>example test passes</i>"]
-        I2 --> I3["Bootstrap contract<br/><i>start/test/verify docs</i>"]
-        I3 --> I4["Task breakdown<br/><i>ordered feature list</i>"]
-        I4 --> I5["Git checkpoint<br/><i>clean commit</i>"]
-    end
-    subgraph "Implementation Phase"
-        I5 --> P1["Session 2: Feature 1"]
-        P1 --> P2["Session 3: Feature 2"]
-        P2 --> P3["Session N: Feature N"]
+flowchart TB
+    subgraph Wrong["Mixed session (wrong)"]
+        W1["Start feature work immediately"] --> W2["Discover env and test gaps mid-task"]
+        W2 --> W3["Accumulate unverified code"]
+        W3 --> W4["Next session must rediscover project state"]
     end
 
-    style I1 fill:#D95C41,color:#fff
-    style I2 fill:#D95C41,color:#fff
-    style I3 fill:#D95C41,color:#fff
-    style I4 fill:#D95C41,color:#fff
-    style I5 fill:#D95C41,color:#fff
+    subgraph Right["Dedicated initialization (right)"]
+        R1["Session 1: environment runnable"] --> R2["Example test passing"]
+        R2 --> R3["Bootstrap contract + task list written"]
+        R3 --> R4["Clean checkpoint committed"]
+        R4 --> R5["Later sessions start directly on verified tasks"]
+    end
 ```
 
 ## Why This Happens

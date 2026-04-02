@@ -23,26 +23,21 @@
 ## 五层失败模型
 
 ```mermaid
-graph LR
-    subgraph "五层失败模型"
-        direction TB
-        L1["① 任务规范层"]
-        L2["② 上下文供给层"]
-        L3["③ 执行环境层"]
-        L4["④ 验证反馈层"]
-        L5["⑤ 状态管理层"]
-    end
-
-    Agent["🤖 Agent"] -->|"遇到"| L1
-    L1 --> L2 --> L3 --> L4 --> L5
-    L5 -->|"信号：缺陷"| Fix["修补对应层 → 重新执行"]
-    Fix -->|"诊断循环"| Agent
+flowchart TB
+    Spec["任务没写清楚<br/>比如“加搜索”含义很多"] --> Fail["结果：<br/>agent 写了很多代码<br/>但做事还是不稳定"]
+    Context["项目规则没写进仓库<br/>agent 看不到"] --> Fail
+    Env["环境没配好<br/>依赖或命令跑不起来"] --> Fail
+    Verify["没有测试或检查命令"] --> Fail
+    State["没有进度文件<br/>下一会话两眼一抹黑"] --> Fail
+    Fail --> Fix["把出错那一层补上<br/>再重新跑"]
 ```
 
 ```mermaid
-graph LR
-    Bare["裸跑模式<br/>20 分钟 / $9<br/>核心功能跑不起来"] -->|"加上 harness"| Full["完整 harness<br/>6 小时 / $200<br/>应用可以正常使用"]
-    Bare -.->|"同一个模型"| Full
+flowchart LR
+    Same["同一个任务<br/>同一个模型"] --> Bare["裸跑<br/>20 分钟 / $9<br/>核心功能失效"]
+    Same --> Full["加上规划、检查和评估<br/>6 小时 / $200<br/>应用可以正常使用"]
+    Bare --> Lesson["变的只有 harness"]
+    Full --> Lesson
 ```
 
 ## 为什么会这样

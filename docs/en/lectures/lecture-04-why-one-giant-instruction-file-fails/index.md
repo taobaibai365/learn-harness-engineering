@@ -23,26 +23,22 @@ This is the "giant instruction file" trap. This lecture explains why "more infor
 ## Instruction Architecture
 
 ```mermaid
-graph TB
-    subgraph "Three-Layer Structure"
-        L1["<b>Layer 1: Routing File</b><br/>AGENTS.md (50–200 lines)<br/>Overview + hard constraints + links"]
-        L2a["<b>Layer 2a</b><br/>api-patterns.md"]
-        L2b["<b>Layer 2b</b><br/>database-rules.md"]
-        L2c["<b>Layer 2c</b><br/>testing-standards.md"]
-        L3["<b>Layer 3: Inline</b><br/>Type defs, interface comments"]
-    end
+flowchart LR
+    Mono["One 600-line AGENTS.md"] --> MonoLoad["Even a small bug fix<br/>must read deploy rules and old notes"]
+    MonoLoad --> MonoRisk["Important rules buried in the middle<br/>are easy to miss"]
 
-    L1 -->|"link"| L2a
-    L1 -->|"link"| L2b
-    L1 -->|"link"| L2c
-    L2a & L2b & L2c -->|"reference"| L3
-
-    style L1 fill:#D95C41,color:#fff
+    Router["Short AGENTS.md"] --> Topics["Load API / DB / testing docs<br/>only when this task needs them"]
+    Topics --> RoutedResult["More context left for code reading<br/>and verification"]
 ```
 
 ```mermaid
-graph LR
-    Top["Top of file<br/>✅ High recall"] --- Mid["Middle of file<br/>❌ Lost in the middle"] --- Bot["Bottom of file<br/>✅ High recall"]
+flowchart TB
+    File["600-line instruction file"] --> Top["Top section<br/>quick start + hard constraints"]
+    File --> Mid["Middle section<br/>critical security rule at line 300"]
+    File --> Bot["Bottom section<br/>explicit end-of-file checklist"]
+    Top --> Seen["High chance of recall"]
+    Bot --> Seen
+    Mid --> Missed["High chance of being diluted or missed"]
 ```
 
 ## Why This Happens

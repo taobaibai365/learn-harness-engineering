@@ -23,34 +23,29 @@
 ## 知识可见性
 
 ```mermaid
-graph LR
-    subgraph "Agent 可见的"
-        Repo["仓库文件<br/>AGENTS.md, 代码, 测试"]
-    end
-    subgraph "Agent 看不到的"
-        Slack["Slack 聊天记录"]
-        Confluence["Confluence 文档"]
-        Heads["资深工程师的脑子"]
-        Jira["Jira 工单"]
-    end
-
-    Repo -->|"可访问"| Agent["🤖 Agent"]
-    Slack -.->|"不可访问"| Agent
-    Confluence -.->|"不可访问"| Agent
-    Heads -.->|"不可访问"| Agent
-    Jira -.->|"不可访问"| Agent
+flowchart LR
+    Slack["Slack 里的规则"] --> Write["写进仓库文件<br/>AGENTS.md / ARCHITECTURE.md / PROGRESS.md"]
+    Confluence["Confluence 里的规则"] --> Write
+    Heads["工程师脑子里的规则"] --> Write
+    Jira["Jira 里的规则"] --> Write
+    Write --> Repo["仓库文件"]
+    Repo --> Agent["新的 agent 会话<br/>直接读仓库"]
+    Warning["规则不写进仓库<br/>agent 就看不见"] --> Agent
 ```
 
 ```mermaid
-graph TB
-    subgraph "冷启动测试"
-        Q1["这是什么系统？"]
-        Q2["怎么组织的？"]
-        Q3["怎么跑？"]
-        Q4["怎么验证？"]
-        Q5["现在做到哪了？"]
-    end
-    Q1 & Q2 & Q3 & Q4 & Q5 -->|"全部能从仓库回答"| Pass["✅ Harness 就绪"]
+flowchart TB
+    Q1["这是什么系统？"] --> A1["AGENTS.md / README"]
+    Q2["怎么组织的？"] --> A2["ARCHITECTURE.md / 模块文档"]
+    Q3["怎么跑？"] --> A3["Makefile / init.sh / package scripts"]
+    Q4["怎么验证？"] --> A4["测试、lint、check 命令"]
+    Q5["现在做到哪了？"] --> A5["PROGRESS.md / 功能清单 / git 历史"]
+
+    A1 --> Ready["新的会话不用问人<br/>就能开始工作"]
+    A2 --> Ready
+    A3 --> Ready
+    A4 --> Ready
+    A5 --> Ready
 ```
 
 ## 为什么会这样

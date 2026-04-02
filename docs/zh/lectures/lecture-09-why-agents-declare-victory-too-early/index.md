@@ -23,27 +23,18 @@
 ## 三层终止检查
 
 ```mermaid
-graph LR
-    subgraph "验证闸门"
-        L1["第一层<br/>语法与静态分析<br/><i>lint, 类型检查</i>"]
-        L2["第二层<br/>运行时行为<br/><i>单元与集成测试</i>"]
-        L3["第三层<br/>系统级确认<br/><i>端到端, 用户场景</i>"]
-    end
-
-    L1 -->|"必须通过"| L2
-    L2 -->|"必须通过"| L3
-    L3 -->|"全部通过"| Done["✅ 完成"]
-
-    style L1 fill:#F4F3EE
-    style L2 fill:#E8E7E2
-    style L3 fill:#D95C41,color:#fff
+flowchart LR
+    Claim["agent 说：做完了"] --> L1["先跑<br/>lint / typecheck"]
+    L1 --> L2["再跑<br/>测试和启动检查"]
+    L2 --> L3["最后跑<br/>完整用户流程"]
+    L3 --> Done["三层都过才算完成"]
 ```
 
 ```mermaid
-graph LR
-    Agent["Agent: '我做完了!'"] -->|"置信度"| High["高置信度"]
-    Reality["实际质量"] -->|"实测"| Low["低质量"]
-    High -.->|"校准偏差"| Low
+flowchart LR
+    A["代码写完了<br/>单测也绿了"] --> B["但应用没真正启动<br/>完整流程也没跑"]
+    B --> C["配置、数据库、外部服务问题<br/>还都藏着"]
+    C --> D["于是 agent 太早宣告完成"]
 ```
 
 ## 为什么会这样

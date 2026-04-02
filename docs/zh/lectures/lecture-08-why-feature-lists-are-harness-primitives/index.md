@@ -23,26 +23,26 @@
 ## 功能状态机
 
 ```mermaid
-stateDiagram-v2
-    [*] --> not_started
-    not_started --> active: Agent 选取任务
-    active --> passing: 验证命令通过
-    active --> blocked: 外部依赖阻塞
-    blocked --> active: 依赖已解决
-    passing --> [*]
+flowchart LR
+    Feature["一行功能项"] --> Behavior["行为<br/>例如：POST /cart/items 返回 201"]
+    Feature --> Check["验证命令<br/>具体要跑什么检查"]
+    Feature --> State["状态<br/>not_started / active / blocked / passing"]
 
-    note right of passing
-        不可逆：一旦 passing，
-        不能回退
-    end note
+    Behavior --> Complete["三列都齐了<br/>这行功能项才能用"]
+    Check --> Complete
+    State --> Complete
 ```
 
 ```mermaid
-graph TB
-    FL["📋 功能清单<br/><i>单一权威来源</i>"] --> Scheduler["调度器<br/><i>选取下一个任务</i>"]
-    FL --> Verifier["验证器<br/><i>执行验证命令</i>"]
-    FL --> Handoff["交接报告器<br/><i>生成摘要</i>"]
-    FL --> Progress["进度追踪器<br/><i>统计状态分布</i>"]
+flowchart LR
+    List["feature_list.json / features.md"] --> Scheduler["选下一个 not_started"]
+    Scheduler --> Agent["agent 只做这一项"]
+    Agent --> Verifier["跑这一项自己的验证命令"]
+    Verifier -->|通过| Passing["写成 passing<br/>并补上验证证据"]
+    Verifier -->|失败| Active["继续保持 active"]
+    Verifier -->|依赖问题| Blocked["标成 blocked"]
+    Passing --> Handoff["更新交接说明<br/>和当前进度"]
+    Active --> Agent
 ```
 
 ## 为什么会这样

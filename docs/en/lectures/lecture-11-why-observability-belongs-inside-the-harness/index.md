@@ -23,25 +23,13 @@ This isn't about the agent lacking capability. It's about your harness not provi
 ## Layered Observability
 
 ```mermaid
-graph TB
-    subgraph "Process Layer"
-        SC["Sprint Contract<br/><i>scope + standards + exclusions</i>"]
-        ER["Evaluator Rubric<br/><i>structured scoring</i>"]
-    end
-    subgraph "System Layer"
-        Logs["Runtime Logs"]
-        Traces["Request Traces"]
-        Health["Health Checks"]
-    end
-
-    SC -->|"guides"| Gen["Generator"]
-    Gen -->|"produces"| Runtime["Runtime Behavior"]
-    Runtime --> Logs & Traces & Health
-    Logs & Traces & Health -->|"evidence"| ER
-    ER -->|"feedback"| Gen
-
-    style SC fill:#D95C41,color:#fff
-    style ER fill:#D95C41,color:#fff
+flowchart LR
+    Contract["Write down the task first<br/>what to change / what not to change / pass criteria"] --> Generator["Generator"]
+    Generator --> Signals["Collect app logs, traces,<br/>and health checks while it runs"]
+    Contract --> Review["Check the result item by item<br/>behavior / tests / boundaries"]
+    Signals --> Review
+    Review --> Verdict["Point to the failed check<br/>and where to fix it"]
+    Verdict --> Generator
 ```
 
 ## Why This Happens

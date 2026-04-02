@@ -23,26 +23,21 @@ This isn't because the model isn't smart enough. It's because the working enviro
 ## Failure Model Overview
 
 ```mermaid
-graph LR
-    subgraph "Five Failure Layers"
-        direction TB
-        L1["① Task Specification"]
-        L2["② Context Provision"]
-        L3["③ Execution Environment"]
-        L4["④ Verification Feedback"]
-        L5["⑤ State Management"]
-    end
-
-    Agent -->|"encounters"| L1
-    L1 --> L2 --> L3 --> L4 --> L5
-    L5 -->|"signals defect"| Fix["Fix layer → Re-run"]
-    Fix -->|"diagnostic loop"| Agent
+flowchart TB
+    Spec["Task not specific<br/>'add search' can mean many things"] --> Fail["Result:<br/>agent writes code<br/>but work is unreliable"]
+    Context["Project rules missing<br/>agent cannot see them"] --> Fail
+    Env["Environment broken<br/>deps or commands fail"] --> Fail
+    Verify["No tests or check commands"] --> Fail
+    State["No progress file<br/>next session starts blind"] --> Fail
+    Fail --> Fix["Fix the broken layer,<br/>then rerun"]
 ```
 
 ```mermaid
-graph LR
-    Bare["Bare Run<br/>20 min / $9<br/>Core features broken"] -->|"Add harness"| Full["Full Harness<br/>6 hr / $200<br/>Playable app"]
-    Bare -.->|"Same model"| Full
+flowchart LR
+    Same["Same prompt<br/>same model"] --> Bare["Bare run<br/>20 min / $9<br/>core features broken"]
+    Same --> Full["Add planning, checks, and evaluation<br/>6 hr / $200<br/>playable app"]
+    Bare --> Lesson["Only the harness changed"]
+    Full --> Lesson
 ```
 
 ## Why This Happens

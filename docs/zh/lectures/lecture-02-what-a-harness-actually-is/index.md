@@ -22,16 +22,13 @@
 ## Harness 五子系统模型
 
 ```mermaid
-graph TB
-    Agent["🤖 AI Agent"] --> I["📋 指令<br/><i>AGENTS.md, CLAUDE.md</i>"]
-    Agent --> T["🔧 工具<br/><i>Shell, 文件操作, 测试</i>"]
-    Agent --> E["🖥️ 环境<br/><i>依赖, 运行时</i>"]
-    Agent --> S["💾 状态<br/><i>进度文件, git</i>"]
-    Agent --> F["✅ 反馈<br/><i>测试结果, lint, 构建</i>"]
-
-    I ~~~ T ~~~ E ~~~ S ~~~ F
-
-    F -->|"最高投入产出比"| Star["⭐ 从这里开始"]
+flowchart LR
+    Rules["项目规则<br/>AGENTS.md / CLAUDE.md"] --> Agent["AI Agent"]
+    State["进度和 git<br/>PROGRESS.md / commits"] --> Agent
+    Agent --> Tools["工具<br/>shell / 文件 / 测试"]
+    Tools --> Env["运行环境<br/>依赖 / 服务 / 版本"]
+    Env --> Checks["检查结果<br/>test / lint / build"]
+    Checks --> Agent
 ```
 
 ## 为什么会这样

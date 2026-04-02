@@ -23,25 +23,26 @@
 ## 会话连续性流程
 
 ```mermaid
-graph LR
-    subgraph "会话 N"
-        Work1["执行任务"] --> Update1["更新 PROGRESS.md<br/>更新 DECISIONS.md"]
-        Update1 --> Commit1["Git 提交检查点"]
-    end
-    subgraph "会话 N+1"
-        Read1["读取 PROGRESS.md<br/>读取 DECISIONS.md"] --> Resume["从下一步继续"]
-        Resume --> Work2["继续工作"]
-    end
-
-    Commit1 -->|"交接"| Read1
+flowchart LR
+    S1["会话 1<br/>功能做到一半"] --> End1["上下文快满了<br/>会话结束"]
+    End1 --> S2["会话 2 重新开始"]
+    S2 --> Guess["重新读目录、重跑测试、<br/>猜上次为什么这么写"]
+    Guess --> Drift["代码会重复改<br/>恢复速度也很慢"]
 ```
 
 ```mermaid
-graph TB
-    subgraph "信息损失"
-        Full["完整上下文<br/>是什么 + 为什么 + 怎么做"] -->|"压缩"| Compact["压缩后<br/>是什么 ✓ · 为什么 ✗"]
-        Full -->|"新会话"| Reset["重置<br/>从工件重建"]
-    end
+flowchart LR
+    Work["会话 1 的工作"] --> Progress["PROGRESS.md<br/>已完成 / 进行中 / 下一步"]
+    Work --> Decisions["DECISIONS.md<br/>为什么这样做"]
+    Work --> Verify["验证记录<br/>哪些测试通过或失败"]
+    Work --> Commit["Git 检查点<br/>当前仓库状态"]
+
+    Progress --> Rebuild["会话 2 重建"]
+    Decisions --> Rebuild
+    Verify --> Rebuild
+    Commit --> Rebuild
+
+    Rebuild --> Resume["新会话能很快接上"]
 ```
 
 ## 为什么会这样

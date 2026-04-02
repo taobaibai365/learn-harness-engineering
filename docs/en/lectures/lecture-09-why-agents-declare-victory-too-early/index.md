@@ -23,27 +23,18 @@ This isn't a random event. Guo et al.'s classic 2017 ICML paper proved that **mo
 ## Three-Layer Termination Check
 
 ```mermaid
-graph LR
-    subgraph "Verification Gates"
-        L1["Layer 1<br/>Syntax & Static Analysis<br/><i>lint, type check</i>"]
-        L2["Layer 2<br/>Runtime Behavior<br/><i>unit & integration tests</i>"]
-        L3["Layer 3<br/>System Validation<br/><i>E2E, user scenarios</i>"]
-    end
-
-    L1 -->|"must pass"| L2
-    L2 -->|"must pass"| L3
-    L3 -->|"all pass"| Done["✅ Done"]
-
-    style L1 fill:#F4F3EE
-    style L2 fill:#E8E7E2
-    style L3 fill:#D95C41,color:#fff
+flowchart LR
+    Claim["Agent says: done"] --> L1["First run<br/>lint / typecheck"]
+    L1 --> L2["Then run<br/>tests and app startup checks"]
+    L2 --> L3["Finally run<br/>the full user flow"]
+    L3 --> Done["All three pass -> done"]
 ```
 
 ```mermaid
-graph LR
-    Agent["Agent: 'I'm done!'"] -->|"confidence"| High["High Confidence"]
-    Reality["Actual Quality"] -->|"measured"| Low["Low Quality"]
-    High -.->|"calibration gap"| Low
+flowchart LR
+    A["Code is written<br/>and unit tests are green"] --> B["But the app was not fully started<br/>and the whole flow was not run"]
+    B --> C["Config, database, or email issues<br/>stay hidden"]
+    C --> D["So the agent declares done too early"]
 ```
 
 ## Why This Happens
