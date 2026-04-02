@@ -546,10 +546,11 @@
 
 .vp-doc .mermaid svg {
   display: block;
-  width: 100% !important;
+  width: auto !important;
   max-width: 100% !important;
   min-width: 0;
   height: auto !important;
+  max-height: min(68vh, 760px) !important;
   margin: 0 auto;
 }
 
@@ -600,9 +601,10 @@ html:lang(zh-CN) .vp-doc .mermaid::after {
   }
 
   .vp-doc .mermaid svg {
-    width: 100% !important;
+    width: auto !important;
     max-width: 100% !important;
     min-width: 0;
+    max-height: min(56vh, 520px) !important;
   }
 
   .vp-doc .mermaid .label,
