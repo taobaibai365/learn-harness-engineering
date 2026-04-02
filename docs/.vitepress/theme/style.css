@@ -20,6 +20,7 @@
   --vp-c-brand-soft: rgba(217, 92, 65, 0.1);
 
   /* Sidebar */
+  --vp-sidebar-width: 296px;
   --vp-sidebar-bg-color: #F4F3EE;
   --vp-c-divider: rgba(0, 0, 0, 0.08);
 
@@ -210,6 +211,9 @@
 
 /* ---------- Sidebar ---------- */
 .VPSidebar {
+  width: min(360px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  padding: 28px 24px 96px;
   background-color: var(--vp-sidebar-bg-color) !important;
   border-right: 1px solid var(--vp-c-divider) !important;
 }
@@ -222,12 +226,19 @@
 
 .VPSidebar .VPSidebarItem .item .link {
   position: relative;
+  align-items: flex-start;
   border-radius: 8px !important;
   transition: background-color 0.2s, color 0.2s;
   color: var(--vp-c-text-2) !important;
   font-size: 0.9rem;
   padding: 8px 12px !important;
   margin: 2px 0;
+}
+
+.VPSidebar .VPSidebarItem .item .text {
+  line-height: 1.55;
+  text-wrap: pretty;
+  line-break: loose;
 }
 
 .VPSidebar .VPSidebarItem .item .link:hover {
