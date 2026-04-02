@@ -24,20 +24,26 @@
 
 ```mermaid
 flowchart TB
-    Spec["任务没写清楚<br/>比如“加搜索”含义很多"] --> Fail["结果：<br/>agent 写了很多代码<br/>但做事还是不稳定"]
-    Context["项目规则没写进仓库<br/>agent 看不到"] --> Fail
-    Env["环境没配好<br/>依赖或命令跑不起来"] --> Fail
-    Verify["没有测试或检查命令"] --> Fail
-    State["没有进度文件<br/>下一会话两眼一抹黑"] --> Fail
-    Fail --> Fix["把出错那一层补上<br/>再重新跑"]
+    Start["开始做任务"] --> Q1{"任务写清了吗？"}
+    Q1 -->|否| Bad["结果：<br/>写了很多代码<br/>但还是不稳"]
+    Q1 -->|是| Q2{"规则写进仓库了吗？"}
+    Q2 -->|否| Bad
+    Q2 -->|是| Q3{"环境跑得起来吗？"}
+    Q3 -->|否| Bad
+    Q3 -->|是| Q4{"有检查命令吗？"}
+    Q4 -->|否| Bad
+    Q4 -->|是| Q5{"有进度记录吗？"}
+    Q5 -->|否| Bad
+    Q5 -->|是| Good["更容易稳定完成"]
 ```
 
 ```mermaid
-flowchart LR
-    Same["同一个任务<br/>同一个模型"] --> Bare["裸跑<br/>20 分钟 / $9<br/>核心功能失效"]
-    Same --> Full["加上规划、检查和评估<br/>6 小时 / $200<br/>应用可以正常使用"]
-    Bare --> Lesson["变的只有 harness"]
-    Full --> Lesson
+flowchart TB
+    Same["同一个任务<br/>同一个模型"]
+    Same --> Bare["只给一句话<br/>20 分钟 / $9"]
+    Same --> Full["先定规则和检查<br/>6 小时 / $200"]
+    Bare --> Bad["核心功能失效"]
+    Full --> Good["应用可用"]
 ```
 
 ## 为什么会这样

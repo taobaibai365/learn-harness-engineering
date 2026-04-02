@@ -24,20 +24,26 @@ This isn't because the model isn't smart enough. It's because the working enviro
 
 ```mermaid
 flowchart TB
-    Spec["Task not specific<br/>'add search' can mean many things"] --> Fail["Result:<br/>agent writes code<br/>but work is unreliable"]
-    Context["Project rules missing<br/>agent cannot see them"] --> Fail
-    Env["Environment broken<br/>deps or commands fail"] --> Fail
-    Verify["No tests or check commands"] --> Fail
-    State["No progress file<br/>next session starts blind"] --> Fail
-    Fail --> Fix["Fix the broken layer,<br/>then rerun"]
+    Start["Start the task"] --> Q1{"Is the task specific?"}
+    Q1 -->|No| Bad["Result:<br/>lots of code<br/>still unstable"]
+    Q1 -->|Yes| Q2{"Are the rules in the repo?"}
+    Q2 -->|No| Bad
+    Q2 -->|Yes| Q3{"Does the environment run?"}
+    Q3 -->|No| Bad
+    Q3 -->|Yes| Q4{"Are there check commands?"}
+    Q4 -->|No| Bad
+    Q4 -->|Yes| Q5{"Is progress recorded?"}
+    Q5 -->|No| Bad
+    Q5 -->|Yes| Good["More likely to finish cleanly"]
 ```
 
 ```mermaid
-flowchart LR
-    Same["Same prompt<br/>same model"] --> Bare["Bare run<br/>20 min / $9<br/>core features broken"]
-    Same --> Full["Add planning, checks, and evaluation<br/>6 hr / $200<br/>playable app"]
-    Bare --> Lesson["Only the harness changed"]
-    Full --> Lesson
+flowchart TB
+    Same["Same task<br/>same model"]
+    Same --> Bare["Just one prompt<br/>20 min / $9"]
+    Same --> Full["Rules and checks first<br/>6 hr / $200"]
+    Bare --> Bad["Core features broken"]
+    Full --> Good["Playable app"]
 ```
 
 ## Why This Happens

@@ -15,21 +15,17 @@ Learn Harness Engineering is a course dedicated to the engineering of AI coding 
 
 ## Visual Preview
 
-### English
+English home page
 
-<p>
-  <img src="./docs/public/screenshots/readme/en-home.png" alt="English homepage preview" width="32%" />
-  <img src="./docs/public/screenshots/readme/en-lecture-01.png" alt="English lecture preview" width="32%" />
-  <img src="./docs/public/screenshots/readme/en-resources.png" alt="English resources preview" width="32%" />
-</p>
+![English homepage preview](./docs/public/screenshots/readme/en-home.png)
 
-### 中文
+English lecture page
 
-<p>
-  <img src="./docs/public/screenshots/readme/zh-home.png" alt="中文首页预览" width="32%" />
-  <img src="./docs/public/screenshots/readme/zh-lecture-01.png" alt="中文讲义预览" width="32%" />
-  <img src="./docs/public/screenshots/readme/zh-resources.png" alt="中文资料库预览" width="32%" />
-</p>
+![English lecture preview](./docs/public/screenshots/readme/en-lecture-01.png)
+
+English resource library
+
+![English resources preview](./docs/public/screenshots/readme/en-resources.png)
 
 ## PDF Coursebooks
 
